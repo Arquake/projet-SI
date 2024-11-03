@@ -1,5 +1,5 @@
 services:
-  backend:
+  backend-symfony:
     build:
       context: .
       dockerfile: docker/Dockerfile.backend
@@ -11,9 +11,32 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://symfony:symfony@postgres/symfony
+      DATABASE_URL: "postgres://symfony:symfony@postgres/symfony"
     networks:
       - my_network
+
+
+  backend-auth:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend-auth
+    container_name: auth_backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend-auth:/auth
+    depends_on:
+      - postgres
+    environment:
+      PORT: 3000
+      DATABASE_URL: "postgres://symfony:symfony@postgres/symfony"
+      REFRESH_TOKEN_KEY: "refresh"
+      JWT_SECRET_KEY: "jwt"
+      REFRESH_EXPIRATION_TIME: "30d"
+      JWT_EXPIRATION_TIME: "15min"
+    networks:
+      - my_network
+
 
   frontend:
     build:
@@ -26,6 +49,9 @@ services:
       - ./frontend:/app  # Bind mount the frontend directory to the container
       - /app/node_modules  # Optional: Prevent the host from using the container's node_modules
     command: ["yarn", "dev"]  # Start the Vite development server
+    environment:
+      NODE_ENV: development
+      VITE_FETCH_API: "http://localhost:3000"
     networks:
       - my_network
 
@@ -36,9 +62,9 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_DB: symfony
-      POSTGRES_USER: symfony
-      POSTGRES_PASSWORD: symfony
+      POSTGRES_DB: "symfony"
+      POSTGRES_USER: "symfony"
+      POSTGRES_PASSWORD: "symfony"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

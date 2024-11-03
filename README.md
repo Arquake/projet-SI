@@ -30,6 +30,8 @@
 http://localhost:8080/
 ## Lien vers React
 http://localhost:5173/
+## Lien vers React
+http://localhost:3000/
 
 
 ## Informations supplémentaires
@@ -47,6 +49,12 @@ Symfony :
 <ul>
     <li>version: 6.4</li>
     <li>maker bundle ajouté de base</li>
+</ul>
+
+Express js :
+<ul>
+    <li>Node 22.8.0</li>
+    <li>Vanilla js</li>
 </ul>
 
 ## Pour ajouter des dépendances
