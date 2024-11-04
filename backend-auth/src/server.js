@@ -62,7 +62,7 @@ app.post('/register', async (req, res) => {
             validity = {...validity, email: true}
         }
 
-        if ((/^[\w]{6,32}$/).test(username)) {
+        if ((/^[\w]{4,32}$/).test(username)) {
             validity = {...validity, username: true}
         }
 
@@ -71,8 +71,6 @@ app.post('/register', async (req, res) => {
         }
 
         const allTrue = Object.values(validity).every(Boolean);
-
-        console.log(allTrue)
 
         if (allTrue) {
             const info = await UserManager.register(username, email, password);
