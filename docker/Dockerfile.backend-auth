@@ -19,7 +19,5 @@ EXPOSE 3000
 # Install nodemon globally
 RUN npm install -g nodemon
 
-# Start the application
+# Start the application with nodemon
 CMD ["nodemon", "./src/server.js"]
-
-
