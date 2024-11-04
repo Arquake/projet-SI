@@ -26,6 +26,11 @@
     </li>
 </ul>
 
+## A run dans express js
+<code>
+    npx prisma dev
+</code>
+
 ## Lien vers le backend Symfony
 http://localhost:8080/
 ## Lien vers React
