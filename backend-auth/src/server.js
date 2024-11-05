@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors())
 
 /**
- *
+ * essaie de connecter l'utilisateur avec ses crédentiels
  */
 app.post('/login', async (req, res) => {
     try {
@@ -26,7 +26,7 @@ app.post('/login', async (req, res) => {
 });
 
 /**
- *
+ * essaies de connecter l'utilisateur avec son refresh token
  */
 app.post('/token-login', TokenManager.verifyRefreshToken, async (req, res) => {
     try {
@@ -82,7 +82,7 @@ app.post('/register', async (req, res) => {
         
     }
     catch (_) {
-        res.status(500).send('An error occured on the server');
+        res.status(500).send('An error occured on the server ');
     }
 });
 

@@ -1,5 +1,6 @@
 import {userStore} from "../store/userStore.ts";
 import {useCallback} from "react";
+import RegisterError from "../Error/RegisterError.ts"
 
 export enum AuthStatus {
     Unknown = 0,
@@ -53,7 +54,7 @@ export function useAuth() {
 
 
     const login = useCallback((email: string, password:string) => {
-        fetch(apiUrl + '/login', {
+        return fetch(apiUrl + '/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -73,8 +74,9 @@ export function useAuth() {
             setAccount(data);
             localStorage.setItem('jwt', data.jwt);
             localStorage.setItem('refreshToken', data.refreshToken);
+            return true
         })
-        .catch(()=>{});
+        .catch(()=>{return false});
     }, [])
 
 
@@ -94,7 +96,7 @@ export function useAuth() {
     }, [])
 
     const register = useCallback((email: string, username: string, password:string) => {
-        fetch(apiUrl + '/register', {
+        return fetch(apiUrl + '/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -107,7 +109,7 @@ export function useAuth() {
         })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                throw new RegisterError(res.json());
             }
             return res.json();
         })
@@ -115,8 +117,11 @@ export function useAuth() {
             setAccount(data);
             localStorage.setItem('jwt', data.jwt);
             localStorage.setItem('refreshToken', data.refreshToken);
+            return true
         })
-        .catch(()=>{});
+        .catch((error)=>{
+            return error.getData()
+        });
     }, [])
 
     return {
