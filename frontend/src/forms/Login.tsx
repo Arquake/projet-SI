@@ -191,7 +191,7 @@ export function Login() {
                                     <img src={passwordShow? eye:eyeCross} className="w-6 h-6 cursor-pointer" onClick={handlePasswordShowChange}/>
                                 </div>
 
-                                <ul className="password-check-list pt-2">
+                                <ul className="password-check-list pt-2 space-y-1">
                                     <li className={`${registerPassword.length>=10? "text-green-500":"text-red-600"}`}>
                                         {getCross(registerPassword.length>=10)}
                                         <p>Au moins 10 caractère de long</p>
