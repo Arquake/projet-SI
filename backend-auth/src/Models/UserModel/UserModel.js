@@ -6,9 +6,9 @@ async function createUser(username, email, password) {
     try {
         return await prisma.user.create({
             data: {
-                username: username,
-                email: email,
-                password: password
+                username,
+                email,
+                password
             }
         })
     }
@@ -22,7 +22,7 @@ async function getUserByEmail(email) {
     try {
         return await prisma.user.findUniqueOrThrow({
             where: {
-                email: email,
+                email,
             }
         })
     }

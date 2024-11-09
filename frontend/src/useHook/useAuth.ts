@@ -109,7 +109,7 @@ export function useAuth() {
         })
         .then(res => {
             if (!res.ok) {
-                throw new RegisterError(res.json());
+                return Promise.reject({...res.json(), status:res.status});
             }
             return res.json();
         })
@@ -120,7 +120,7 @@ export function useAuth() {
             return true
         })
         .catch((error)=>{
-            return error.getData()
+            return error
         });
     }, [])
 

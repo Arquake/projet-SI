@@ -4,8 +4,6 @@ import imagesvg from '../assets/test-svg.svg'
 import "../styles/login.css";
 import eye from "/app/src/assets/eye.svg"
 import eyeCross from "/app/src/assets/cross-eye.svg"
-import validCheck from "/app/src/assets/valid-check.svg"
-import crossCheck from "/app/src/assets/cross-round.svg"
 
 export function Login() {
 
@@ -22,6 +20,7 @@ export function Login() {
             setRegisterPassword("");
             setRegisterUsernameValidity(true);
             setRegisterUsername("");
+            setRegisterError(false);
         }
         else {
             setLoginError(false);
@@ -92,6 +91,7 @@ export function Login() {
     };
 
 
+    const [registerError, setRegisterError] = useState(false);
     const [registerEmailValidity, setRegisterEmailValidity] = useState(true);
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPasswordValidity, setRegisterPasswordValidity] = useState(true);
@@ -103,18 +103,21 @@ export function Login() {
         setRegisterUsername(event.target.value)
         if ((/^[\w]{4,32}$/).test(event.target.value)) {setRegisterUsernameValidity(true)}
         else {setRegisterUsernameValidity(false)}
+        if (registerError) {setRegisterError(false);}
     }
 
     const handleRegisterPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         setRegisterPassword(event.target.value)
         if ((/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,32}$/).test(event.target.value)) {setRegisterPasswordValidity(true)}
         else {setRegisterPasswordValidity(false)}
+        if (registerError) {setRegisterError(false);}
     }
 
     const handleRegisterEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setRegisterEmail(event.target.value)
         if ((/^[\w\-\.]+@(?:[\w-]+\.)+[\w-]{2,4}$/).test(event.target.value)) {setRegisterEmailValidity(true)}
         else {setRegisterEmailValidity(false)}
+        if (registerError) {setRegisterError(false);}
     }
 
     const handleSubmitRegister = (e: FormEvent<HTMLFormElement>) => {
@@ -128,11 +131,8 @@ export function Login() {
                 data.get('password')!.toString(),
             )
             .then((data)=>{
-                console.log(data)
                 if (data !== true) {
-                    setRegisterEmailValidity(data.email);
-                    setRegisterPasswordValidity(data.password);
-                    setRegisterUsernameValidity(data.username);
+                    setRegisterError(true);
                 }
             })
         }
@@ -172,22 +172,25 @@ export function Login() {
 
                     <div className={`form ${onLogin?"register-to-right":""}`}>
                         <legend className="text-center text-2xl font-semibold">Register</legend>
+                        <p className={`text-red-600 text-center ${registerError? "visible":"invisible"}`}>
+                            Le nom d'utilisateur ou email est déjà utilisé
+                        </p>
                         <form onSubmit={handleSubmitRegister} className="login-form">
                             <div>
                                 <label htmlFor="username">Username</label>
                                 <input type="text" id="username" placeholder="Username" required={true} name="username"
-                                className={`${registerUsernameValidity? "border-transparent":"error-input"} duration-300`} value={registerUsername} onChange={handleRegisterUsernameChange}/>
+                                className={`${registerUsernameValidity && !registerError? "border-transparent":"error-input"} duration-300`} value={registerUsername} onChange={handleRegisterUsernameChange}/>
                             </div>
                             <div>
                                 <label htmlFor="email">Email</label>
                                 <input type="text" id="email" placeholder="Email" required={true} name="email"
-                                className={`${registerEmailValidity? "border-transparent":"error-input"} duration-300`} value={registerEmail} onChange={handleRegisterEmailChange}/>
+                                className={`${registerEmailValidity && !registerError? "border-transparent":"error-input"} duration-300`} value={registerEmail} onChange={handleRegisterEmailChange}/>
                             </div>
                             <div>
                                 <label htmlFor="password">Password</label>
                                 <div className="flex justify-center items-center gap-2">
                                     <input type={passwordShow?"text":"password"} id="password" placeholder="Password" required={true} name="password"
-                                    className={`${registerPasswordValidity? "border-transparent":"error-input"} duration-300 input-form flex-1`} value={registerPassword} onChange={handleRegisterPasswordChange}/>
+                                    className={`${registerPasswordValidity && !registerError? "border-transparent":"error-input"} duration-300 input-form flex-1`} value={registerPassword} onChange={handleRegisterPasswordChange}/>
                                     <img src={passwordShow? eye:eyeCross} className="w-6 h-6 cursor-pointer" onClick={handlePasswordShowChange}/>
                                 </div>
 

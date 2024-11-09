@@ -1,0 +1,22 @@
+.profile-bar {
+    transform: translateY(1rem) translateX(-75%);
+    @apply absolute duration-1000 w-max;
+
+}
+
+.profile-open {
+    height: calc(auto);
+    @apply border-gray-700 bg-yellow-300 text-gray-700 overflow-hidden mr-2 px-3 py-1 border;
+
+    & > * {
+        @apply py-1 pr-2 font-semibold
+    }
+}
+
+.profile-open :nth-child(n + 2) {
+    @apply border-t border-gray-700;
+}
+
+.profile-close {
+    @apply opacity-0 overflow-hidden p-0 m-0 border-0
+}

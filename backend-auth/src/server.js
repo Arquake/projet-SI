@@ -52,38 +52,44 @@ app.post('/token-login', TokenManager.verifyRefreshToken, async (req, res) => {
  */
 app.post('/register', async (req, res) => {
     try {
-        let username = req.body.username;
-        let password = req.body.password;
-        let email = req.body.email;
-
-        let validity = {username: false, password: false, email: false}
-
-        if ((/^[\w\-\.]+@(?:[\w-]+\.)+[\w-]{2,4}$/).test(email)) {
-            validity = {...validity, email: true}
+        try {
+            let username = req.body.username;
+            let password = req.body.password;
+            let email = req.body.email;
+    
+            let validity = {username: false, password: false, email: false}
+    
+            if ((/^[\w\-\.]+@(?:[\w-]+\.)+[\w-]{2,4}$/).test(email)) {
+                validity = {...validity, email: true}
+            }
+    
+            if ((/^[\w]{4,32}$/).test(username)) {
+                validity = {...validity, username: true}
+            }
+    
+            if ((/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,32}$/).test(password)) {
+                validity = {...validity, password: true}
+            }
+    
+            const allTrue = Object.values(validity).every(Boolean);
+    
+            if (allTrue) {
+                const info = await UserManager.register(username, email, password);
+                res.status(200).send(info)
+            }
+            else {
+                res.status(401).send(validity)
+            }
+            
         }
-
-        if ((/^[\w]{4,32}$/).test(username)) {
-            validity = {...validity, username: true}
+        catch (_) {
+            res.status(400).json('Impossible to create the user');
         }
-
-        if ((/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,32}$/).test(password)) {
-            validity = {...validity, password: true}
-        }
-
-        const allTrue = Object.values(validity).every(Boolean);
-
-        if (allTrue) {
-            const info = await UserManager.register(username, email, password);
-            res.status(200).send(info)
-        }
-        else {
-            res.status(401).send(validity)
-        }
-        
     }
     catch (_) {
-        res.status(500).send('An error occured on the server ');
+        res.status(500).json('Internal server error');
     }
+    
 });
 
 /**
