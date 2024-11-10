@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../useHook/useAuth";
 import "/app/src/styles/home.css"
+import { ProfileArrowSvg } from "../components/ProfileArrowSvg";
 
 
 export default function Home () {
@@ -29,15 +30,23 @@ export default function Home () {
                     
                     <div className="flex justify-end">
                         <div className="cursor-pointer bg-yellow-300 p-2 rounded-full text-gray-700" onClick={handleOpenProfileMenu}>
-                            <ProfileOrArrowSvg extendMenu={!showProfileMenu} />
-                            <div className={(showProfileMenu? "profile-close":"profile-open") + " profile-bar"}>
-                                <p>Paramètres</p>
-                                <p>Se déconnecter</p>
+                            <ProfileArrowSvg extendMenu={!showProfileMenu} />
+                            <div className={(showProfileMenu? "profile-open":"profile-close") + " profile-bar"}>
+                                <div>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-6 aspect-square">
+                                            <path fill="currentColor" d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9l-1.28 2.22l-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24l-1.3-2.21l.8-.9a3 3 0 0 0 0-4l-.8-.9l1.28-2.2l1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24l1.28 2.22l-.8.9a3 3 0 0 0 0 3.98m-6.77-6a4 4 0 1 0 4 4a4 4 0 0 0-4-4m0 6a2 2 0 1 1 2-2a2 2 0 0 1-2 2"/>
+                                        </svg>
+                                    </div>
+                                    <p>Paramètres</p>
+                                </div>
+                                <div onClick={handleLogout}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-6 aspect-square">
+                                        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12h-9.5m7.5 3l3-3l-3-3m-5-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-1"/>
+                                    </svg>
+                                    <p>Se déconnecter</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div onClick={handleLogout} className="cursor-pointer hidden">
-                            Logout
                         </div>
                     </div>
                     
@@ -47,30 +56,6 @@ export default function Home () {
 
                 </main>
             </div>
-        </>
-    )
-}
-
-
-
-interface profileOrArrow {
-    extendMenu: boolean
-}
-
-const ProfileOrArrowSvg: React.FC<profileOrArrow> = ({extendMenu}) => {
-    return (
-        <>
-            {
-                extendMenu?
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-8 aspect-square">
-                    <path fill="currentColor" d="M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569z"/>
-                </svg>
-                :
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-8 aspect-square">
-                    <path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6" clip-rule="evenodd"/>
-                </svg>
-
-            }
         </>
     )
 }
