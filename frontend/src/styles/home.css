@@ -1,3 +1,7 @@
+:root {
+    --neonColor: rgba(134, 239, 172, 0.7);
+}
+
 .profile-bar {
     transform: translateY(1rem) translateX(calc(-75% - 1rem));
     @apply absolute duration-500 w-max px-3;
@@ -20,4 +24,12 @@
 
 .profile-close {
     @apply opacity-0 overflow-hidden py-0 m-0 border-0
+}
+
+.neon-escape {
+    filter: 
+    drop-shadow( 10px 10px 10px var(--neonColor)) 
+    drop-shadow( -10px -10px 10px var(--neonColor)) 
+    drop-shadow( 10px -10px 10px var(--neonColor)) 
+    drop-shadow( -10px 10px 10px var(--neonColor));
 }

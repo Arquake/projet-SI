@@ -1,0 +1,18 @@
+.left-question-mark {
+    transform: translate(60%,-145%) rotate(30deg) ;
+    scale: .45;
+}
+
+.middle-question-mark {
+transform: translate(0%,-150%);
+scale: .5;
+}
+
+.right-question-mark {
+transform: translate(-60%,-160%) rotate(-30deg);
+scale: .4;
+}
+  
+.question-mark {
+    @apply fill-neutral-50 h-24 w-24 opacity-50 absolute inset-0 scale-50
+}
