@@ -32,8 +32,11 @@ export default function NavBar() {
                 </div>
                 
                 <div className="flex justify-end">
-                    <div className="cursor-pointer bg-yellow-300 p-2 rounded-full text-gray-700" onClick={handleOpenProfileMenu}>
-                        <ProfileArrowSvg extendMenu={!showProfileMenu} />
+                    <div className="bg-yellow-300 p-2 rounded-full text-gray-700">
+                        <div onClick={handleOpenProfileMenu}>
+                            <ProfileArrowSvg extendMenu={!showProfileMenu} />
+                        </div>
+                        
                         <div className={(showProfileMenu? "profile-open":"profile-close") + " profile-bar"}>
                             <div>
                                 <div>

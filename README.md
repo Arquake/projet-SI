@@ -28,7 +28,7 @@
 
 ## A run dans express js
 <code>
-    npx prisma dev
+    npx prisma migrate dev
 </code>
 
 ## Lien vers le backend Symfony

@@ -35,7 +35,7 @@ export const ProfileArrowSvg: React.FC<ProfileOrArrowProps> = ({ extendMenu }) =
     }, [extendMenu]);
 
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox={!extendMenu? arrowViewBox : accountViewBox} className="h-8 aspect-square">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox={!extendMenu? arrowViewBox : accountViewBox} className="h-8 aspect-square cursor-pointer">
             <path fill="currentColor" ref={pathRef} />
         </svg>
     );
