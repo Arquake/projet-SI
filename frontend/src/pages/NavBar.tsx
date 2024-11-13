@@ -13,13 +13,19 @@ export default function NavBar() {
     const handleOpenProfileMenu = () => {
         setShowProfileMenu(!showProfileMenu);
     }
+
+    const handleMainPageLink = () => {
+        if (window.location.pathname !== "/") {
+            window.location.pathname = "/";
+        }
+    }
     
     return (
         <>
             <header className="p-2 grid grid-cols-3 gap-12 items-center bg-yellow-100">
                 <div className="flex col-span-1 col-start-2 justify-center">
                     <div className="cursor-pointer bg-yellow-300 p-2 rounded-full justify-self-center">
-                        <div className="h-8 aspect-square">
+                        <div className="h-8 aspect-square" onClick={handleMainPageLink}>
                             <img src="/src/assets/parrot.svg" />
                         </div>
                     </div>
