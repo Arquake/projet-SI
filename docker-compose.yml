@@ -22,7 +22,7 @@ services:
       dockerfile: docker/Dockerfile.backend-auth
     container_name: auth_backend
     ports:
-      - "3000:3000"
+      - "3100:3000"
     volumes:
       - ./backend-auth:/auth
     depends_on:
@@ -44,14 +44,14 @@ services:
       dockerfile: docker/Dockerfile.frontend  # Path to your Dockerfile
     container_name: react_frontend
     ports:
-      - "5173:5173"  # Map container port to host port
+      - "5200:5173"  # Map container port to host port
     volumes:
       - ./frontend:/app  # Bind mount the frontend directory to the container
       - /app/node_modules  # Optional: Prevent the host from using the container's node_modules
     command: ["yarn", "dev"]  # Start the Vite development server
     environment:
       NODE_ENV: development
-      VITE_FETCH_API: "http://localhost:3000"
+      VITE_FETCH_API: "http://localhost:3100"
     networks:
       - my_network
 
@@ -60,7 +60,7 @@ services:
     image: postgres:17
     container_name: postgres_db
     ports:
-      - "5433:5432"
+      - "5600:5433"
     environment:
       POSTGRES_DB: "symfony"
       POSTGRES_USER: "symfony"
