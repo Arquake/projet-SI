@@ -46,6 +46,31 @@ export function useAuth() {
     }, [])
 
 
+
+    const endSession = useCallback((codeId: number) => {
+        return fetch('http://localhost:3000/validate-stage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                code: codeId
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(() => {
+            setAccount(true);
+            return true
+        })
+        .catch(()=>{return false});
+    }, [])
+
+
     return {
         account,
         status,
