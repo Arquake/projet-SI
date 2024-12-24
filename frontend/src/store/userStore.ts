@@ -4,8 +4,8 @@ import {combine} from "zustand/middleware";
 
 export const userStore = create(
     combine({
-        account: null as null | true
+        account: null as null | number
     }, (set) => ({
-        setAccount: (account: true | null): void => set({account})
+        setAccount: (account: number | null): void => set({account})
     }))
 );

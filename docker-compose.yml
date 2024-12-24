@@ -1,21 +1,4 @@
 services:
-  backend-symfony:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.backend
-    container_name: symfony_backend
-    ports:
-      - "8080:80"
-    volumes:
-      - ./backend:/var/www/html
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: "postgres://symfony:symfony@postgres/symfony"
-    networks:
-      - my_network
-
-
   backend-auth:
     build:
       context: .

@@ -36,7 +36,7 @@ export function Login() {
 
                             <input type='text' className='px-2 py-0.5 rounded-full border border-neutral-100' placeholder='Code ...' maxLength={6} name='code' id='code'/>
 
-                            <button className='bg-orange-400 text-neutral-50 py-1 px-8 rounded-full text-xl'>Commencer</button>
+                            <button className='bg-orange-400 active:bg-orange-600 text-neutral-50 py-1 px-8 rounded-full text-xl'>Commencer</button>
                         </form>
                     </div>
                 </div>

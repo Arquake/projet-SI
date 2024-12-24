@@ -6,7 +6,7 @@ export enum AuthStatus {
     Authenticated = 1
 }
 
-const apiUrl: string = import.meta.env.VITE_FETCH_API;
+const apiUrl: string = /*import.meta.env.VITE_FETCH_API ||*/ "http://localhost:3000";
 
 export function useAuth() {
     const {account, setAccount} = userStore();
@@ -23,10 +23,11 @@ export function useAuth() {
 
 
     const login = useCallback((codeId: number) => {
-        return fetch('http://localhost:3000/get-code-validity', {
+        return fetch(apiUrl + '/get-code-validity', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${codeId || ''}`
             },
             body: JSON.stringify({
                 code: codeId
@@ -36,35 +37,37 @@ export function useAuth() {
             if (!res.ok) {
                 throw new Error('Network response was not ok');
             }
-            return res.json();
-        })
-        .then(() => {
-            setAccount(true);
-            return true
+            else if (res.status === 200) {
+                setAccount(codeId);
+                return true
+            }
         })
         .catch(()=>{return false});
     }, [])
 
 
 
-    const endSession = useCallback((codeId: number) => {
-        return fetch('http://localhost:3000/validate-stage', {
+    const endSession = useCallback(() => {
+        console.log(account)
+        return fetch(apiUrl + '/validate-stage', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${1} ${'pk'} ${account || ''}`
             },
             body: JSON.stringify({
-                code: codeId
+                completed: true
             })
         })
         .then(res => {
+            console.log(res)
             if (!res.ok) {
                 throw new Error('Network response was not ok');
             }
             return res.json();
         })
         .then(() => {
-            setAccount(true);
+            setAccount(null);
             return true
         })
         .catch(()=>{return false});
@@ -75,5 +78,6 @@ export function useAuth() {
         account,
         status,
         login,
+        endSession
     }
 }
