@@ -27,7 +27,7 @@ export function useAuth() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${codeId || ''}`
+                'Authorization': `Bearer ${2} ${'pk'}`
             },
             body: JSON.stringify({
                 code: codeId
@@ -48,12 +48,11 @@ export function useAuth() {
 
 
     const endSession = useCallback(() => {
-        console.log(account)
         return fetch(apiUrl + '/validate-stage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${1} ${'pk'} ${account || ''}`
+                'Authorization': `Bearer ${2} ${'pk'} ${account || ''}`
             },
             body: JSON.stringify({
                 completed: true
