@@ -1,4 +1,3 @@
-import { useAuth } from "../useHook/useAuth"
 import MainMenu from "./MainMenu"
 import NavBar from "./NavBar"
 import "/app/src/styles/home.css"
@@ -6,8 +5,6 @@ import "/app/src/styles/home.css"
 
 
 export default function Home () {
-
-    const {endSession} = useAuth();
 
     return (
         <>

@@ -27,7 +27,7 @@ export function useAuth() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${2} ${'pk'}`
+                'Authorization': `Bearer ${13} ${'pk'}`
             },
             body: JSON.stringify({
                 code: codeId
@@ -52,7 +52,7 @@ export function useAuth() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${2} ${'pk'} ${account || ''}`
+                'Authorization': `Bearer ${13} ${'pk'} ${account || ''}`
             },
             body: JSON.stringify({
                 completed: true
